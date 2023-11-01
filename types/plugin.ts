@@ -13,12 +13,14 @@ export interface PluginKey {
 
 export enum PluginID {
   GOOGLE_SEARCH = 'google-search',
-  KNOWLEDGEDOC = 'knowledgedoc'
+  KNOWLEDGEDOC = 'knowledgedoc',
+  FINETUNNINGCHAT = 'fineTunningChat'
 }
 
 export enum PluginName {
   GOOGLE_SEARCH = 'Google Search',
-  KNOWLEDGEDOC = 'knowledgedoc'
+  KNOWLEDGEDOC = 'knowledgedoc',
+  FINETUNNINGCHAT = 'fineTunningChat'
 }
 
 export const Plugins: Record<PluginID, Plugin> = {
@@ -54,6 +56,19 @@ export const Plugins: Record<PluginID, Plugin> = {
           messages: [
             {role: 'user', content: ''}
           ]
+        }
+      }
+    ]
+  },
+  [PluginID.FINETUNNINGCHAT]:{
+    id: PluginID.FINETUNNINGCHAT,
+    name: PluginName.FINETUNNINGCHAT,
+    requiredKeys: [
+      {
+        key: 'QUERY_PARAMS',
+        value: {
+          prompt: '',
+          finetuning_id: 5,
         }
       }
     ]

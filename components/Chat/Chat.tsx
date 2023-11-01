@@ -130,6 +130,12 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
               appendBody = {...appendBody, ...queryParams}
             }
 
+            if(plugin.id === 'fineTunningChat') {
+              let queryParams = plugin.requiredKeys.find((key) => key.key === 'QUERY_PARAMS')?.value;
+              queryParams.prompt = message.content;
+              appendBody = {...appendBody, ...queryParams}
+            }
+
           body = JSON.stringify(appendBody);
         }
         const controller = new AbortController();

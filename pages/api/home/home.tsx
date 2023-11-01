@@ -353,8 +353,12 @@ const Home = ({
 
   
   useEffect(() => {
+    // 文档对话需要参数 fid 和 fn 
     const paramFid = new URLSearchParams(window.location.search).get('fid');
     const paramFname = new URLSearchParams(window.location.search).get('fn');
+    // 模型对话需要参数 mid
+    const paramMid = new URLSearchParams(window.location.search).get('mid');
+
     const conversationHistory = localStorage.getItem('conversationHistory') || '[]';
     
     if(paramFid && paramFid != '') {
@@ -372,6 +376,7 @@ const Home = ({
               {
                 fileInfo: { fileid: paramFid},
                 name: paramFname,
+                type: 'doc'
               }
             )
           }
@@ -380,20 +385,36 @@ const Home = ({
           {
              fileInfo: { fileid: paramFid},
              name: paramFname,
+             type: 'doc'
           }
         )
       }
       router.push('/zh');
     }
 
-    // 需要一个全局问答的栏
-      const parsedConversationHistory: Conversation[] =JSON.parse(conversationHistory);
+    
+      const parsedConversationHistory: Conversation[] =JSON.parse(localStorage.getItem('conversationHistory') || '[]');
+      // 需要一个知识库全局问答的栏
       const currentConversationList = parsedConversationHistory.filter((item:Conversation) => item?.fileInfo?.fileid == null);
+
       if(currentConversationList.length == 0) {
         handleNewConversation({fileInfo: {
           fileid: null,
-        }, name: '全局问答'})
+        }, name: '知识库全局问答', type: 'doc'})
       }
+
+      if(paramMid) {
+        // 需要一个模型问答的栏
+        const currentConversationListModel = parsedConversationHistory.filter((item:Conversation) => item?.type == 'model');
+        if(currentConversationListModel.length == 0) {
+          handleNewConversation({fileInfo: {
+            fileid: '1',
+          }, name: '模型问答', type: 'model'})
+        }
+      }
+
+
+
   }, []);
 
   return (

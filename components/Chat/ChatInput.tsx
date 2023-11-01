@@ -224,6 +224,10 @@ export const ChatInput = ({
   };
 
   useEffect(() => {
+    setPlugin(selectedConversation?.type == 'model' ? Plugins.fineTunningChat : Plugins.knowledgedoc)
+  }, [selectedConversation])
+
+  useEffect(() => {
     if (promptListRef.current) {
       promptListRef.current.scrollTop = activePromptIndex * 30;
     }

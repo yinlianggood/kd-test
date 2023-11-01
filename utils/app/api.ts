@@ -13,5 +13,9 @@ export const getEndpoint = (plugin: Plugin | null) => {
     return 'https://ai02-api.chatgpt365.tech/api/admin/knowledgedoc/question';
   }
 
+  if(plugin.id === PluginID.FINETUNNINGCHAT) {
+    return 'https://ai02-api.chatgpt365.tech/api/gpt/fineTunningChat';
+  }
+
   return 'api/chat';
 };

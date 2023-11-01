@@ -153,7 +153,7 @@ export const ConversationComponent = ({ conversation }: Props) => {
 
       {selectedConversation?.id === conversation.id &&
         !isDeleting &&
-        !isRenaming && selectedConversation.name != '全局问答' && (
+        !isRenaming && selectedConversation.name != '知识库全局问答' && selectedConversation.name != '模型问答' && (
           <div className="absolute right-1 z-10 flex text-gray-300">
             <SidebarActionButton handleClick={handleOpenRenameModal}>
               <IconPencil size={18} />
